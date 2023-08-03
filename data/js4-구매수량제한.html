@@ -14,5 +14,30 @@
     <p style="margin-top:50px;">총 수량 <span id="number">0</span>개</p>
     <p>총 가격 <span id="result">0</span>원</p>
     <p><button type="button" id="reset">X</button></p>
+
+    <script>
+        const order = document.querySelector('#order')
+        const num = document.querySelector('#number')
+        const reset = document.querySelector('#reset')
+        const result = document.querySelector('#result')
+        let money = 4800
+        let as = 0
+        let total = 0
+        console.log(order,as,num,reset,result)
+        // 1. 주문하기 버튼 1번 클릭할때마다
+        order.addEventListener('click',function(){
+            //1-2 수량증가하기
+            as++  // 수량 데이터 변수 1증가
+            num.innerHTML = as //수량표시변수에  데이터 대입
+            total = money*as
+            result.innerHTML = total
+        })
+        
+        reset.addEventListener('click',function(){
+            as = 0
+            num.innerHTML = as
+            result.innerHTML = 0
+        })
+    </script>
 </body>
 </html>
