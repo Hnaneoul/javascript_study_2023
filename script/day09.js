@@ -42,5 +42,6 @@ for(let i=study.length-1; i>=0; i--){ //study에서 수정한값만큼 바로 �
 //반복문 연습
 const coffee = new Array('아메리카노','카레라떼','녹차라떼')
 for(let i=0; i< coffee.length; i++){
-    console.log(coffee[i])
+    console.log(coffee[i])\
+    
 }
