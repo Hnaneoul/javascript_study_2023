@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./data/styles/reset.css">
+    <style>
+        body{height: 400vh; scroll-behavior: smooth; 
+            }
+        header {margin:50px 0 0 50px; position: fixed; left: 50px; top:50px;}
+        header h1 {font-size: 3rem;}
+        header nav {margin-top:30px;}
+        header nav a {display: inline-block; font-size: 2rem; padding:10px; }
+        aside {position: fixed; left:50px; top:400px;}
+        aside .bar{margin-bottom: 15px; display: block; height: 3px; width:50px; background: #000;}
+        aside .active{width:100px; background: #fff; }
+        main {}
+        main .bg {height: 100vh;  background-size: cover; background-position: center; }
+        main .bg1 {background: url(./images/bg1.jpg);}
+        main .bg2 {background: url(./images/bg2.jpg);}
+        main .bg3 {background: url(./images/bg3.jpg);}
+        main .bg4 {background: url(./images/bg4.jpg);}
+
+        #mouse {
+            width:50px;height: 50px;
+            border:5px solid #fff; 
+            border-radius: 50%;
+            /* 화면 최상단 스크롤 상관없이 고정되며 마우스 따라가는 CSS */
+            position: fixed; left: 0; top:0; z-index: 999;
+            transform: translate(-50%, -40%);
+            transition: all 0.05s linear;
+            /* 필수속성 : 마우스 따라다니는 이미지 만들경우 */
+            /* (위) 이미지에 의해서 링크, 버튼 등 선택이 안되는 문제해결 */
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="mouse"></div>
+    <header>
+        <h1>Interior View</h1>
+        <nav>
+            <a href="#" onclick="return false;">A</a>
+            <a href="#" onclick="return false;">B</a>
+            <a href="#" onclick="return false;">C</a>
+            <a href="#" onclick="return false;">D</a>
+        </nav>
+    </header>
+    <aside>
+        <span class="bar active"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </aside>
+    <main>
+        <div class="bg bg1"></div>
+        <div class="bg bg2"></div>
+        <div class="bg bg3"></div>
+        <div class="bg bg4"></div>
+    </main>
+    <script>
+        const nav = document.querySelectorAll('a')
+        const bg = document.querySelectorAll('.bg')
+        const bar = document.querySelectorAll('.bar')
+        console.log(nav,bg,bar)
+        nav.forEach(function(target,index){
+            target.addEventListener('click',function(e){
+                e.preventDefault()
+                window.scrollTo(0,bg[index].offsetTop)
+            })
+        })
+
+        //왼쪽 줄이 페이지 위치에따라 바뀌는 옵션
+        const body = document.querySelector('body,html')
+        window.addEventListener('scroll',function(){
+            // console.log('body,srollTop>>',body.scrollTop)
+            bar.forEach(function(t,i){
+                if(body.scrollTop >= bg[i].offsetTop){
+                    for(let j of bar){j.classList.remove('active')}
+                    t.classList.add('active')
+                }
+            })
+        })
+
+        const mouseImg = document.querySelector('#mouse')
+        console.log(mouseImg)
+        // 마우스 움직일 때 모양바뀌고 따라다니는 효과 주는법
+        window.addEventListener('mousemove',function(e){
+            // console.log(e)
+            mouseImg.style.left = `${e.clientX}px`
+            mouseImg.style.top = `${e.clientY}px`
+        })
+    </script>
+</body>
+</html>
